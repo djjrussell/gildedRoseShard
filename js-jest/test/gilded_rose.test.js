@@ -131,7 +131,7 @@ describe("Gilded Rose", function() {
   });
 
   it("given example", function() {
-    const items = [
+    let items = [
       new Item("+5 Dexterity Vest", 10, 20),
       new Item("Aged Brie", 2, 0),
       new Item("Elixir of the Mongoose", 5, 7),
@@ -143,16 +143,38 @@ describe("Gilded Rose", function() {
       new Item("Conjured Mana Cake", 3, 6),
     ];
 
-    // const days = Number(process.argv[2]) || 2;
     const days = 4;
     const gildedRose = new Shop(items);
 
-    console.log("OMGHAI!");
     for (let day = 0; day < days; day++) {
-      console.log(`\n-------- day ${day} --------`);
-      console.log('name, sellIn, quality');
-      items.forEach(item => console.log(`${item.name}, ${item.sellIn}, ${item.quality}`));
-      gildedRose.updateQuality();
+      items = gildedRose.updateQuality();
     }
+    // "+5 Dexterity Vest", 10, 20
+    expect(items[0].sellIn).toBe(6);
+    expect(items[0].quality).toBe(16);
+    // "Aged Brie", 2, 0
+    expect(items[1].sellIn).toBe(-2);
+    expect(items[1].quality).toBe(4);
+    // "Elixir of the Mongoose", 5, 7
+    expect(items[2].sellIn).toBe(1);
+    expect(items[2].quality).toBe(3);
+    // "Sulfuras, Hand of Ragnaros", 0, 80
+    expect(items[3].sellIn).toBe(-4);
+    expect(items[3].quality).toBe(80);
+    // "Sulfuras, Hand of Ragnaros", -1, 80
+    expect(items[4].sellIn).toBe(-5);
+    expect(items[4].quality).toBe(80);
+    // "Backstage passes to a TAFKAL80ETC concert", 15, 20
+    expect(items[5].sellIn).toBe(11);
+    expect(items[5].quality).toBe(24);
+    // "Backstage passes to a TAFKAL80ETC concert", 10, 49
+    expect(items[6].sellIn).toBe(6);
+    expect(items[6].quality).toBe(50);
+    // "Backstage passes to a TAFKAL80ETC concert", 5, 49
+    expect(items[7].sellIn).toBe(1);
+    expect(items[7].quality).toBe(50);
+    // "Conjured Mana Cake", 3, 6),
+    expect(items[8].sellIn).toBe(-1);
+    expect(items[8].quality).toBe(0);
   })
 });
