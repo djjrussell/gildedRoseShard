@@ -149,6 +149,8 @@ describe("Gilded Rose", function() {
     for (let day = 0; day < days; day++) {
       items = gildedRose.updateQuality();
     }
+
+
     // "+5 Dexterity Vest", 10, 20
     expect(items[0].sellIn).toBe(6);
     expect(items[0].quality).toBe(16);
